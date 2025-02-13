@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+jobs:p
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js with pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8 # Use the latest pnpm version
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Copy .env.example to .env
+        run: find . -type f -name ".env.example" -exec sh -c 'cp "$1" "${1%.*}"' _ {} \;
+
+      
