@@ -11,6 +11,7 @@ const Loadable =
 // Auth routes
 
 export const Login = Loadable(lazy(() => import('../pages/auth/login/index')));
+
 export const DashboardLayout = Loadable(
   lazy(() => import('../Layouts/DashboardLayout.tsx'))
 );

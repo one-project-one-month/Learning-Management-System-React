@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+/.env
+/.env.local
+/.env.development.local
+/.env.test.local
+/.env.production.l  
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +28,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+yarn.lock
+package-lock.json
+pnpm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+lerna-debug.log*
+
+# Local Netlify folder
+.netlify
