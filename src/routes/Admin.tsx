@@ -1,25 +1,32 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import { DashboardLayout } from './elements';
+import { MainLayout } from './elements';
+import CoursePageTesting from '@/pages/course/page';
+import Dashboard from '@/pages/Dashboard';
 
 export default function Admin() {
+  const userRole: 'student' | 'admin' | 'instructor' = 'student';
   return useRoutes([
     {
       path: '/',
-      element: <Navigate to="/dashboard" replace />,
+      element: <Navigate to="/" replace />,
     },
     {
-      path: '/dashboard',
-      element: <DashboardLayout />,
+      path: '/',
+      element: <MainLayout/>,
       children: [
         {
-          element: <Navigate to="/dashboard" replace />,
+          element: <Dashboard userRole={userRole} />,
           index: true,
+        },
+        {
+          path: 'courses',
+          element: <CoursePageTesting />,
         },
       ],
     },
     {
       path: '*',
-      element: <Navigate to="/dashboard" replace />,
+      element: <Navigate to="/" replace />,
     },
   ]);
 }

@@ -12,6 +12,4 @@ const Loadable =
 
 export const Login = Loadable(lazy(() => import('../pages/auth/login/index')));
 
-export const DashboardLayout = Loadable(
-  lazy(() => import('../Layouts/DashboardLayout.tsx'))
-);
+export const MainLayout = Loadable(lazy(() => import('../Layouts/index.tsx')));
