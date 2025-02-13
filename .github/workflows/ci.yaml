@@ -1,0 +1,36 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js & pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18  # Change if using a different version
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8 # Use the latest pnpm version
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Copy Environment Variables
+        run: cp .env.example .env
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build Project
+        run: pnpm build
