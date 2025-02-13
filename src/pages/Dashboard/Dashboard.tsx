@@ -1,7 +1,7 @@
 import React from 'react';
-import StudentDashboard from '../StudentDashboard/page';
-import InstructorDashboard from '../InstructorDashboard/page';
-import AdminDashboard from '../AdminDashboard/page';
+import StudentDashboard from '../StudentDashboard/StudentDashboard';
+import InstructorDashboard from '../InstructorDashboard/InstructorDashboard';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
 
 type UserRole = 'student' | 'admin' | 'instructor';
 

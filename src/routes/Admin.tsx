@@ -1,7 +1,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import { MainLayout } from './elements';
-import CoursePageTesting from '@/pages/course/page';
-import Dashboard from '@/pages/Dashboard';
+import CoursePageTesting from '@/pages/course/Course';
+import Dashboard from '@/pages/Dashboard/Dashboard';
 
 export default function Admin() {
   const userRole: 'student' | 'admin' | 'instructor' = 'student';
@@ -12,7 +12,7 @@ export default function Admin() {
     },
     {
       path: '/',
-      element: <MainLayout/>,
+      element: <MainLayout />,
       children: [
         {
           element: <Dashboard userRole={userRole} />,
