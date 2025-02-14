@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import './style/app.css';
+import './index.css';
 import RootApp from './RootApp.tsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
