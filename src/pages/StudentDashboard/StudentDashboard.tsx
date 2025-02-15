@@ -6,7 +6,6 @@ const StudentDashboard = () => {
   return (
     <main>
       <StudentHeader />
-
       <StudentCourses />
     </main>
   );
