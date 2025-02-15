@@ -1,4 +1,4 @@
-import './style/app.css';
+import './index.css';
 
 import { QueryProviders } from './provider/QueryProvider';
 import Routes from './routes';

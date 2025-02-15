@@ -10,6 +10,14 @@ const Loadable =
 
 // Auth routes
 
-export const Login = Loadable(lazy(() => import('../pages/auth/login/index')));
+export const Login = Loadable(
+  lazy(() => import('../pages/auth/login/Login.tsx'))
+);
 
-export const MainLayout = Loadable(lazy(() => import('../Layouts/index.tsx')));
+export const MainLayout = Loadable(lazy(() => import('../Layouts/Layout.tsx')));
+export const Dashboard = Loadable(
+  lazy(() => import('../pages/Dashboard/Dashboard.tsx'))
+);
+export const CoursePageTesting = Loadable(
+  lazy(() => import('../pages/course/Course.tsx'))
+);
