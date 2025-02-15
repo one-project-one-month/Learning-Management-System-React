@@ -1,5 +1,4 @@
 import { BellDot } from 'lucide-react';
-import { cn } from '../../lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 const StudentNav = () => {
   return (

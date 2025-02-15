@@ -15,3 +15,9 @@ export const Login = Loadable(
 );
 
 export const MainLayout = Loadable(lazy(() => import('../Layouts/Layout.tsx')));
+export const Dashboard = Loadable(
+  lazy(() => import('../pages/Dashboard/Dashboard.tsx'))
+);
+export const CoursePageTesting = Loadable(
+  lazy(() => import('../pages/course/Course.tsx'))
+);

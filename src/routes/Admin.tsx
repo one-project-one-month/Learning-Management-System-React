@@ -1,10 +1,9 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import { MainLayout } from './elements';
-import CoursePageTesting from '@/pages/course/Course';
-import Dashboard from '@/pages/Dashboard/Dashboard';
+import { CoursePageTesting, Dashboard, MainLayout } from './elements';
 
 export default function Admin() {
   const userRole: 'student' | 'admin' | 'instructor' = 'student';
+
   return useRoutes([
     {
       path: '/',
