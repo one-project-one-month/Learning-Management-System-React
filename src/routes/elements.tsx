@@ -19,5 +19,5 @@ export const Dashboard = Loadable(
   lazy(() => import('../pages/Dashboard/Dashboard.tsx'))
 );
 export const CoursePageTesting = Loadable(
-  lazy(() => import('../pages/course/Course.tsx'))
+  lazy(() => import('../pages/StuentCourse/StudentCourses.tsx'))
 );
