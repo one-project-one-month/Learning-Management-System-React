@@ -1,7 +1,11 @@
 import StudentCourseCard from './StudentCourseCard';
 import { TUserCourse } from './types';
 
-const StudentCourses = () => {
+interface Props {
+  categoryId: number;
+}
+
+const StudentCourses = ({ categoryId }: Props) => {
   const courseData: TUserCourse[] = [
     {
       id: 1,
@@ -52,6 +56,8 @@ const StudentCourses = () => {
       instructor: 'Ko Lin',
     },
   ];
+
+  console.log('categoryId >>>', categoryId);
 
   return (
     <div>
