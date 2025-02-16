@@ -1,4 +1,4 @@
-import { TUserCourse } from '../StuentCourse/types';
+import { TUserCourse } from '../studentCourse/types';
 
 type CategoryType = {
   categoryId: number;

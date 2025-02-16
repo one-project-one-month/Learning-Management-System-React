@@ -1,6 +1,6 @@
 import StudentHeader from './StudentHeader';
 
-import StudentCourses from '../StuentCourse/StudentCourses';
+import StudentCourses from '../studentCourse/StudentCourses';
 
 const StudentDashboard = () => {
   return (

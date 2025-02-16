@@ -26,10 +26,15 @@ const StudentCourseCard = memo(
     return (
       <div className="grid grid-cols-3 gap-4">
         {courseData.map((item, index) => (
-          <Card key={item.id} className={colors[index % colors.length]}>
+          <Card
+            key={item.id}
+            className={`${
+              colors[index % colors.length]
+            } rounded-[30px] border-[#000] border-2`}
+          >
             <CardHeader className="flex flex-row justify-between items-center ">
               <CardTitle>
-                <div className="border-[1px] p-2 bg-yellow-400 rounded-md">
+                <div className="border-[1px] border-[#000] p-2 bg-yellow-400 rounded-[12px] ">
                   {item.category}
                 </div>
               </CardTitle>
@@ -39,24 +44,29 @@ const StudentCourseCard = memo(
                 ))}
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-6">
               <h1 className="font-semibold">{item.title}</h1>
-              <div className="flex flex-row justify-between items-center">
-                <h1>Progress</h1>
-                <div>{item.progress} lessons</div>
+              <div>
+                <div className="flex flex-row space-y-3 justify-between items-center">
+                  <h1>Progress</h1>
+                  <div>{item.progress} lessons</div>
+                </div>
+                <ProgressDemo progress={item.progress} />
               </div>
-              <ProgressDemo progress={item.progress} />
             </CardContent>
             <CardFooter className="flex items-center justify-between">
-              <Avatar>
-                <AvatarImage
-                  src="https://images.unsplash.com/photo-1701351382146-035bd68cdb6d?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt={item.instructor}
-                />
-                <AvatarFallback>{item.instructor}</AvatarFallback>
-              </Avatar>
-              {/* <h1>{item.instructor}</h1> */}
-              <Button className="bg-orange-600 hover:bg-orange-700">
+              <div className="flex items-center gap-2">
+                <Avatar>
+                  <AvatarImage
+                    src="https://images.unsplash.com/photo-1701351382146-035bd68cdb6d?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt={item.instructor}
+                  />
+                  <AvatarFallback>{item.instructor}</AvatarFallback>
+                </Avatar>
+                <h1>{item.instructor}</h1>
+              </div>
+
+              <Button className="bg-orange-600 text-md rounded-lg hover:bg-orange-700">
                 Continue
               </Button>
             </CardFooter>

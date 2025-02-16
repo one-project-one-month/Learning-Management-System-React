@@ -9,15 +9,15 @@ export default function StudentHeader() {
     <header className="h-20 w-full flex justify-between items-center px-2 ">
       <div className="text-xl font-bold">My Courses</div>
 
-      <div className="flex flex-row gap-2 justify-between items-center">
+      <div className="flex flex-row gap-4 justify-between items-center">
         <CourseDropdownMenu onId={setCourseId} />
-        <div className="border-[1px] border-black rounded-md p-1 m-2 ">
+        <div className="border-[1px] px-2 cursor-pointer border-black rounded-lg p-1  ">
           Marketing
         </div>
-        <div className="border-[1px] border-black rounded-md p-1 m-2 ">
+        <div className="border-[1px] px-2 cursor-pointer border-black rounded-lg p-1  ">
           Computer Science
         </div>
-        <div className="border-[1px] border-black rounded-md p-1 m-2 ">
+        <div className="border-[1px] px-2 cursor-pointer border-black rounded-lg p-1  ">
           React
         </div>
       </div>
