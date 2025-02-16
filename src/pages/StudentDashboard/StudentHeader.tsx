@@ -3,16 +3,17 @@ import { courseDummyCategory } from './dummy-data';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 interface Props {
+  categoryId: number;
   onCategoryId: (id: number) => void;
 }
 
-export default function StudentHeader({ onCategoryId }: Props) {
+export default function StudentHeader({ categoryId, onCategoryId }: Props) {
   return (
     <header className="h-20 w-full flex justify-between items-center px-2 ">
       <div className="text-xl font-bold mb-2">My Courses</div>
       <div className="flex items-center gap-1">
         <Button
-          variant={'outline'}
+          variant={`${categoryId === 0 ? 'default' : 'outline'}`}
           onClick={() => {
             onCategoryId(0);
           }}
@@ -24,7 +25,10 @@ export default function StudentHeader({ onCategoryId }: Props) {
           <div className="flex flex-row gap-1 justify-between items-center overflow-x-auto w-auto p-1 pb-2">
             {courseDummyCategory.map((category) => (
               <Button
-                variant={'outline'}
+                variant={`${
+                  categoryId === category.categoryId ? 'default' : 'outline'
+                }`}
+                // variant={'default'}
                 key={category.categoryId}
                 onClick={() => {
                   onCategoryId(category.categoryId);

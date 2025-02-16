@@ -8,7 +8,7 @@ const StudentDashboard = () => {
 
   return (
     <main>
-      <StudentHeader onCategoryId={setCategoryId} />
+      <StudentHeader onCategoryId={setCategoryId} categoryId={categoryId} />
       <StudentCourses categoryId={categoryId} />
     </main>
   );
