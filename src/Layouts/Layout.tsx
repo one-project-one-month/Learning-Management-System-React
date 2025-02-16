@@ -13,7 +13,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <AppSidebar />
       <SidebarInset>
       <div className={`p-4 ${theme == "light"? "bg-black" : "bg-stone-100" }` }>
-          <div className={`flex flex-col min-h-screen rounded-xl px-6 ${theme == "light"? "bg-stone-100" : "bg-black" }`}>
+          <div className={`flex flex-col min-h-screen rounded-xl px-6 pb-6 ${theme == "light"? "bg-stone-100" : "bg-black" }`}>
             {/* Header */}
             <StudentNav />
             <main className="flex-1 ">

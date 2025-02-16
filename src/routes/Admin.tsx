@@ -1,5 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import { CoursePageTesting, Dashboard, MainLayout } from './elements';
+import { CoursePageTesting, Dashboard, Login, MainLayout } from './elements';
 import Loader from '@/components/Loading';
 
 export default function Admin() {
@@ -29,6 +29,10 @@ export default function Admin() {
               <Loader />
             </div>
           ),
+        },
+        {
+          path: 'login',
+          element: <Login />,
         },
       ],
     },
