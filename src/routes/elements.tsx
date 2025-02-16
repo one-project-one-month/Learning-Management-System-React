@@ -1,9 +1,16 @@
+import Loader from '@/components/Loading.tsx';
 import { Suspense, lazy, ElementType } from 'react';
 
 const Loadable =
   <Props extends Record<string, unknown>>(Component: ElementType) =>
   (props: Props) => (
-    <Suspense fallback={<p>loading...</p>}>
+    <Suspense
+      fallback={
+        <div className="w-full h-full flex justify-center items-center">
+          <Loader />
+        </div>
+      }
+    >
       <Component {...props} />
     </Suspense>
   );
@@ -19,5 +26,5 @@ export const Dashboard = Loadable(
   lazy(() => import('../pages/Dashboard/Dashboard.tsx'))
 );
 export const CoursePageTesting = Loadable(
-  lazy(() => import('../pages/StuentCourse/StudentCourses.tsx'))
+  lazy(() => import('../pages/studentCourse/StudentCourses.tsx'))
 );
