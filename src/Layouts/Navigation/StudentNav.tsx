@@ -1,8 +1,12 @@
 import { ModeToggle } from '@/components/mode-toggle';
+import { useAuthStore } from '@/store/authStore';
 const StudentNav = () => {
+  const { authUser } = useAuthStore();
   return (
     <header className="h-20 w-full  flex justify-between items-center px-2  border-slate-600">
-      <div className="text-xl font-bold">Logo</div>
+      <div className="text-xl font-bold">
+        {authUser ? authUser.name : 'No User Yet'}
+      </div>
 
       <div className="flex flex-row gap-2 justify-between items-center ">
         <input

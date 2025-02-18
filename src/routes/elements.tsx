@@ -18,7 +18,7 @@ const Loadable =
 // Auth routes
 
 export const Login = Loadable(
-  lazy(() => import('../pages/auth/login/Login.tsx'))
+  lazy(() => import('../features/authentication/Login.tsx'))
 );
 
 export const Register = Loadable(
