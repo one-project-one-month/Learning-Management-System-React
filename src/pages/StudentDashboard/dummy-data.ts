@@ -2,7 +2,7 @@ import { TUserCourse } from '../studentCourse/types';
 
 type CategoryType = {
   categoryId: number;
-  category: string;
+  name: string;
 };
 
 interface CourseType extends TUserCourse {
@@ -10,9 +10,16 @@ interface CourseType extends TUserCourse {
 }
 
 export const courseDummyCategory: CategoryType[] = [
-  { categoryId: 1, category: 'Computer Science' },
-  { categoryId: 2, category: 'C#' },
-  { categoryId: 3, category: 'JavaScript' },
+  { categoryId: 1, name: 'Computer Science' },
+  { categoryId: 2, name: 'C#' },
+  { categoryId: 3, name: 'JavaScript' },
+  { categoryId: 4, name: 'React' },
+  { categoryId: 5, name: 'NextJS' },
+  { categoryId: 6, name: 'PHP' },
+  { categoryId: 7, name: 'Laravel' },
+  { categoryId: 8, name: 'NestJs' },
+  { categoryId: 9, name: 'Go' },
+  { categoryId: 10, name: 'DevOps' },
 ];
 
 export const courseDummyData: CourseType[] = [
