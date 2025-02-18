@@ -5,7 +5,9 @@ import {
   Bell,
   ChevronsUpDown,
   CreditCard,
+  LogIn,
   LogOut,
+  LucideLogIn,
   Sparkles,
 } from 'lucide-react';
 
@@ -25,6 +27,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { Link } from 'react-router-dom';
+import { useTheme } from '@/provider/theme-provide';
 
 export function NavUser({
   user,
@@ -36,6 +40,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const { theme } = useTheme();
 
   return (
     <SidebarMenu>
@@ -44,11 +49,17 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="h-16 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
+              <Avatar
+                className={`h-16 w-16 rounded-full ${
+                  theme == 'light' ? 'text-black' : 'text-white'
+                }`}
+              >
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user.name}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -63,7 +74,7 @@ export function NavUser({
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="p-0 font-normal">
+            <DropdownMenuLabel className="p-0 font-normal cursor-pointer">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
@@ -77,31 +88,43 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <Sparkles />
                 Upgrade to Pro
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <Bell />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <LogOut />
               Log out
             </DropdownMenuItem>
+            <Link to="/login">
+              <DropdownMenuItem className="cursor-pointer">
+                <LogIn />
+                Login
+              </DropdownMenuItem>
+            </Link>
+            <Link to="/register">
+              <DropdownMenuItem className="cursor-pointer">
+                <LucideLogIn />
+                <span>Register</span>
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

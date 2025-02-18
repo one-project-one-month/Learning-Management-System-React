@@ -3,6 +3,9 @@ import { CoursePageTesting, Dashboard, Login, MainLayout, Register } from './ele
 import Loader from '@/components/Loading';
 
 export default function Admin() {
+
+  
+
   const userRole: 'student' | 'admin' | 'instructor' = 'student';
 
   return useRoutes([

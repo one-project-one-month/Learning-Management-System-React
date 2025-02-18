@@ -9,9 +9,11 @@ interface Props {
 
 export default function StudentHeader({ categoryId, onCategoryId }: Props) {
   return (
-    <header className="h-20 w-full flex justify-between items-center px-2 ">
-      <div className="text-xl font-bold mb-2">My Courses</div>
-      <div className="flex items-center gap-1">
+    <header className="h-20 w-full flex justify-between items-center space-x-2 ">
+      <div className="hidden md:block md:text-xl font-bold mb-2">
+        My Courses
+      </div>
+      <div className="flex items-center gap-1 ">
         <Button
           variant={`${categoryId === 0 ? 'default' : 'outline'}`}
           onClick={() => {
@@ -21,8 +23,8 @@ export default function StudentHeader({ categoryId, onCategoryId }: Props) {
         >
           All Courses
         </Button>
-        <ScrollArea className="max-w-md whitespace-nowrap rounded-md pb-1">
-          <div className="flex flex-row gap-1 justify-between items-center overflow-x-auto w-auto p-1 pb-2">
+        <ScrollArea className="max-w-[180px] md:max-w-md whitespace-nowrap rounded-md pb-1">
+          <div className="flex flex-row gap-1  justify-between items-center overflow-x-auto w-auto p-1 pb-2">
             {courseDummyCategory.map((category) => (
               <Button
                 variant={`${

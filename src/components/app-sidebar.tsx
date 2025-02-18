@@ -3,19 +3,17 @@
 import * as React from 'react';
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
+  BookOpenCheckIcon,
+  BookOpenIcon,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
-import { NavProjects } from '@/components/nav-projects';
+// import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
 // import { TeamSwitcher } from '@/components/team-switcher';
 import {
@@ -23,16 +21,15 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 
 // This is sample data.
 const data = {
   user: {
-    name: 'shadcn',
+    name: 'Ko Lin',
     email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    avatar:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   teams: [
     {
@@ -53,86 +50,40 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
+      title: 'My Courses',
+      url: 'login',
+      icon: BookOpenCheckIcon,
       isActive: true,
       items: [
+        {
+          title: 'Ongoing',
+          url: '#',
+        },
+        {
+          title: 'Completed',
+          url: '#',
+        },
+      ],
+    },
+    {
+      title: 'All Courses',
+      url: '#',
+      icon: BookOpenIcon,
+      items: [
+        {
+          title: 'Computer Science',
+          url: '#',
+        },
         {
           title: 'History',
           url: '#',
         },
         {
-          title: 'Starred',
+          title: 'Web Development',
           url: '#',
         },
         {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
+          title: 'Software Engineer',
           url: '#',
         },
       ],
@@ -159,18 +110,20 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <SidebarTrigger />
-      </SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      side="left"
+      {...props}
+      className="border-none hover:border-none focus:border-none focus:ring-0"
+    >
+      <SidebarHeader></SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   );
 }
