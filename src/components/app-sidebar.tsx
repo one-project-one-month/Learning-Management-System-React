@@ -114,14 +114,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       collapsible="icon"
       side="left"
       {...props}
-      className="border-none hover:border-none focus:border-none focus:ring-0"
+      className="flex flex-col items-center justify-between  h-full border-none hover:border-none focus:border-none focus:ring-0 "
     >
-      <SidebarHeader></SidebarHeader>
-      <SidebarContent>
+      <SidebarHeader className="flex justify-center  items-center w-full">
+        <span className="font-semibold text-xl mr-2">LMS</span>
+      </SidebarHeader>
+      <SidebarContent className="flex flex-col items-start justify-center pt-5  w-full">
         <NavMain items={data.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="flex justify-center items-center w-full ">
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>

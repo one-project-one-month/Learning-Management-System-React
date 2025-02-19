@@ -1,13 +1,14 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import { CoursePageTesting, Dashboard, Login, MainLayout, Register } from './elements';
+import {
+  CoursePageTesting,
+  Dashboard,
+  Login,
+  MainLayout,
+  Register,
+} from './elements';
 import Loader from '@/components/Loading';
 
 export default function Admin() {
-
-  
-
-  const userRole: 'student' | 'admin' | 'instructor' = 'student';
-
   return useRoutes([
     {
       path: '/',
@@ -18,7 +19,7 @@ export default function Admin() {
       element: <MainLayout />,
       children: [
         {
-          element: <Dashboard userRole={userRole} />,
+          element: <Dashboard />,
           index: true,
         },
         {

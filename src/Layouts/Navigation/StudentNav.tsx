@@ -3,6 +3,7 @@ import { useAuthStore } from '@/store/authStore';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
+
 const StudentNav = () => {
   const { authUser } = useAuthStore();
   return (

@@ -3,8 +3,11 @@ import { IUser } from '@/features/authentication/types/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+type UserRole = 'student' | 'instructor' | 'admin' | null;
 interface AuthState {
   authUser: IUser | null;
+  userRole: UserRole;
+  setRole: (role: Exclude<UserRole, null>) => void;
   accessToken: string | null;
   refreshToken: string | null;
   login: (tokens: {
@@ -19,6 +22,7 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       authUser: null,
+      userRole: 'student',
       accessToken: null,
       refreshToken: null,
 
@@ -42,6 +46,7 @@ export const useAuthStore = create<AuthState>()(
           get().logout();
         }
       },
+      setRole: (role) => set({ userRole: role }),
     }),
     { name: 'auth-storage' }
   )

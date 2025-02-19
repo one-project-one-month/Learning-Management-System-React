@@ -3,6 +3,9 @@
 import {
   ChevronRight,
   GraduationCap,
+  LayoutDashboard,
+  LayoutDashboardIcon,
+  LucideLayoutDashboard,
   Mail,
   type LucideIcon,
 } from 'lucide-react';
@@ -23,6 +26,7 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '@/store/authStore';
 
 export function NavMain({
   items,
@@ -38,10 +42,11 @@ export function NavMain({
     }[];
   }[];
 }) {
+  const { setRole } = useAuthStore();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
+      <SidebarMenu className="space-y-5">
         {items.map((item) => (
           <Collapsible
             key={item.title}
@@ -62,9 +67,9 @@ export function NavMain({
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenuSub>
+                <SidebarMenuSub className="space-y-5 ">
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
+                    <SidebarMenuSubItem key={subItem.title} className="mt-5">
                       <SidebarMenuSubButton asChild>
                         <Link to={`${subItem.url}`}>
                           <span>{subItem.title}</span>
@@ -93,6 +98,42 @@ export function NavMain({
             </div>
             <span className="mt-1">Contact Us</span>
           </Link>
+        </SidebarMenuButton>
+        <SidebarMenuButton
+          onClick={() => setRole('admin')}
+          asChild
+          tooltip={'Admin Dashboard'}
+        >
+          <div className="cursor-pointer">
+            <div className="w-5 h-5">
+              <LayoutDashboard />
+            </div>
+            <span className="mt-1">Admin Dashboard</span>
+          </div>
+        </SidebarMenuButton>
+        <SidebarMenuButton
+          onClick={() => setRole('instructor')}
+          asChild
+          tooltip={'Instructor Dashboard'}
+        >
+          <div className="cursor-pointer">
+            <div className="w-5 h-5">
+              <LayoutDashboardIcon />
+            </div>
+            <span className="mt-1">Instructor Dashboard</span>
+          </div>
+        </SidebarMenuButton>
+        <SidebarMenuButton
+          onClick={() => setRole('student')}
+          asChild
+          tooltip={'Student Dashboard'}
+        >
+          <div className="cursor-pointer">
+            <div className="w-5 h-5">
+              <LucideLayoutDashboard />
+            </div>
+            <span className="mt-1">Student Dashboard</span>
+          </div>
         </SidebarMenuButton>
       </SidebarMenu>
     </SidebarGroup>

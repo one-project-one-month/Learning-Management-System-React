@@ -7,6 +7,7 @@ import { useTheme } from '@/provider/theme-provide';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme } = useTheme();
+
   return (
     <SidebarProvider>
       {/* app sidebar */}

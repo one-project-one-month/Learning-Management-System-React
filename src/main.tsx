@@ -8,9 +8,9 @@ import { ThemeProvider } from './provider/theme-provide.tsx';
 createRoot(document.getElementById('root')!).render(
   <HelmetProvider>
     <BrowserRouter>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <RootApp />
-    </ThemeProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <RootApp />
+      </ThemeProvider>
     </BrowserRouter>
   </HelmetProvider>
 );
