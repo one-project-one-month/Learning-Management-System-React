@@ -25,9 +25,8 @@ export default function StudentHeader({ categoryId, onCategoryId }: Props) {
           <div className="flex flex-row gap-1 justify-between items-center overflow-x-auto w-auto p-1 pb-2">
             {courseDummyCategory.map((category) => (
               <Button
-                variant={`${
-                  categoryId === category.categoryId ? 'default' : 'outline'
-                }`}
+                variant={`${categoryId === category.categoryId ? 'default' : 'outline'
+                  }`}
                 // variant={'default'}
                 key={category.categoryId}
                 onClick={() => {
