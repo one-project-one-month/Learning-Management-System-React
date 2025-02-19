@@ -3,6 +3,7 @@ import { useAuthStore } from '@/store/authStore';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 const StudentNav = () => {
   const { authUser } = useAuthStore();
   return (
@@ -17,11 +18,14 @@ const StudentNav = () => {
       </div>
 
       <div className="flex flex-row gap-2 justify-between items-center ">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full max-w-xs p-2  text-sm outline-none rounded-lg border border-gray-300"
-        />
+        <div className='flex justify-between items-center px-3 border border-gray-300 rounded-full'>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full max-w-xs p-2  text-sm outline-none bg-transparent  "
+          />
+          <Search className='w-5' />
+        </div>
         <div className="flex flex-row  gap-2 justify-between items-center">
           <ModeToggle />
         </div>

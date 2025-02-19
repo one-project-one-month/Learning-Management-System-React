@@ -49,12 +49,12 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="h-16 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className={`h-16 ${theme == 'light' ? 'hover:bg-gray-300 data-[state=open]:bg-gray-300' : 'data-[state=open]:bg-sidebar-accent'
+                }   data-[state=open]:text-sidebar-accent-foreground`}
             >
               <Avatar
-                className={`h-16 w-16 rounded-full ${
-                  theme == 'light' ? 'text-black' : 'text-white'
-                }`}
+                className={`h-16 w-16 rounded-full ${theme == 'light' ? 'text-black' : 'text-white'
+                  }`}
               >
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">
