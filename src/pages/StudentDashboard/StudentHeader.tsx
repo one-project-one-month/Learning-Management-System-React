@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { courseDummyCategory } from './dummy-data';
+
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { courseDummyCategory } from '@/constant/dummy-data';
 
 interface Props {
   categoryId: number;
@@ -28,12 +29,12 @@ export default function StudentHeader({ categoryId, onCategoryId }: Props) {
             {courseDummyCategory.map((category) => (
               <Button
                 variant={`${
-                  categoryId === category.categoryId ? 'default' : 'outline'
+                  categoryId === category.id ? 'default' : 'outline'
                 }`}
                 // variant={'default'}
-                key={category.categoryId}
+                key={category.id}
                 onClick={() => {
-                  onCategoryId(category.categoryId);
+                  onCategoryId(category.id);
                 }}
               >
                 {category.name}
