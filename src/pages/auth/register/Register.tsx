@@ -6,7 +6,7 @@ import { useTheme } from "@/provider/theme-provide";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { LockKeyhole, Mail } from "lucide-react";
+import { EyeIcon, EyeOff, LockKeyhole, Mail } from "lucide-react";
 
 type FormData = {
   email: string;
@@ -67,10 +67,10 @@ const Login = () => {
                   <Input
                     type="text"
                     placeholder="Enter your email"
-                    className="mt-1 h-10"
+                    className="mt-1 h-10 ps-12"
                     {...register('email', { required: '* Email is required' })}
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                     <Mail className='w-5' />
                   </span>
                 </div>
@@ -90,13 +90,18 @@ const Login = () => {
                   <Input
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter your password"
-                    className="mt-1 h-10"
+                    className="mt-1 h-10 ps-12"
                     {...register('password', {
                       required: '* Password is required',
                     })}
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                     <LockKeyhole className='w-5' />
+                  </span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 ">
+                    {showPassword ?
+                      <EyeIcon className='w-5' onClick={() => setShowPassword(!showPassword)} /> :
+                      <EyeOff className='w-5' onClick={() => setShowPassword(!showPassword)} />}
                   </span>
                 </div>
                 {errors.password && (
@@ -105,23 +110,8 @@ const Login = () => {
                   </p>
                 )}
 
-
-                {/* show/hide password */}
-                <div className="flex items-center mt-2">
-                  <input
-                    type="checkbox"
-                    id="show-password"
-                    className="mr-2 cursor-pointer"
-                    onChange={() => setShowPassword(!showPassword)}
-                  />
-                  <label
-                    htmlFor="show-password"
-                    className="text-sm text-gray-400 cursor-pointer"
-                  >
-                    Show Password
-                  </label>
-                </div>
               </div>
+
 
               {/* confirm password */}
               <div>
@@ -131,26 +121,44 @@ const Login = () => {
                 >
                   Confirm Password
                 </label>
+
                 <div className="relative">
-                  <div className="relative">
-                    <Input
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="Confirm your password"
-                      className="mt-1 h-10"
-                      {...register('confirmPassword', {
-                        required: '* Confirm Password is required',
-                      })}
-                    />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                      <LockKeyhole className='w-5' />
-                    </span>
-                  </div>
-                  {errors.confirmPassword && (
-                    <p className="text-sm mt-1 text-red-500">
-                      {errors.confirmPassword.message}
-                    </p>
-                  )}
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Confirm your password"
+                    className="mt-1 h-10 ps-12"
+                    {...register('confirmPassword', {
+                      required: '* Confirm Password is required',
+                    })}
+                  />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <LockKeyhole className='w-5' />
+                  </span>
+
                 </div>
+                {errors.confirmPassword && (
+                  <p className="text-sm mt-1 text-red-500">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+
+              </div>
+
+              {/* show/hide password */}
+              <div className="flex items-center mt-2">
+                <input
+                  type="checkbox"
+                  id="show-password"
+                  className="mr-2 cursor-pointer"
+                  onChange={() => setShowPassword(!showPassword)}
+                  checked={showPassword}
+                />
+                <label
+                  htmlFor="show-password"
+                  className="text-sm text-gray-400 cursor-pointer"
+                >
+                  Show Password
+                </label>
               </div>
 
               <Button type="submit" className="w-full h-10">
