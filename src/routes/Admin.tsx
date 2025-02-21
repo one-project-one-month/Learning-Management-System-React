@@ -1,12 +1,8 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import {
-  CoursePageTesting,
-  Dashboard,
-  Login,
-  MainLayout,
-  Register,
-} from './elements';
-import Loader from '@/components/Loading';
+import { CoursePageTesting, Login, MainLayout, Register } from './elements';
+
+import Dashboard from '@/pages/Dashboard/Dashboard';
+import CourseDetailPage from '@/pages/course/CourseDetailPage';
 
 export default function Admin() {
   return useRoutes([
@@ -27,12 +23,8 @@ export default function Admin() {
           element: <CoursePageTesting />,
         },
         {
-          path: 'loading',
-          element: (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <Loader />
-            </div>
-          ),
+          path: 'coursedetails',
+          element: <CourseDetailPage />,
         },
         {
           path: 'login',
