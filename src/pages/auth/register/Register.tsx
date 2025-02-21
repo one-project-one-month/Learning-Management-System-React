@@ -14,7 +14,7 @@ type FormData = {
   confirmPassword: string;
 };
 
-const Login = () => {
+const Register = () => {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -184,4 +184,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
