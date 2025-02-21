@@ -3,7 +3,7 @@ import LoginForm from './components/LoginForm';
 
 const Login = () => {
   return (
-    <div className="grid h-[80vh] justify-center items-center  md:grid-cols-2 border-t-2 border-gray-200 md:p-4">
+    <div className="grid  justify-center items-center  md:grid-cols-2 border-t-2 border-gray-200 md:p-4">
       {/* left side image & text */}
       <div className="flex flex-col items-center justify-center space-y-3">
         <img src={Figure} alt="" className="w-60" />
