@@ -1,11 +1,12 @@
+import { dummyStudentUserData } from '@/constant/dummy-data';
 import StudentCourseCard from './StudentCourseCard';
-import { TUserCourse } from './types';
 
 interface Props {
   categoryId: number;
 }
 
 const StudentCourses = ({ categoryId }: Props) => {
+  /*
   const courseData: TUserCourse[] = [
     {
       id: 1,
@@ -56,12 +57,23 @@ const StudentCourses = ({ categoryId }: Props) => {
       instructor: 'Ko Lin',
     },
   ];
+  */
 
-  console.log('categoryId >>>', categoryId);
+  const customEnrollments = dummyStudentUserData.enrollments?.filter(
+    (data) => data.course?.categoryId === categoryId
+  );
+
+  if (!dummyStudentUserData.enrollments)
+    return <div>enrollments not found</div>;
 
   return (
     <div>
-      <StudentCourseCard courseData={courseData} />
+      {categoryId === 0 && (
+        <StudentCourseCard enrollments={dummyStudentUserData.enrollments} />
+      )}
+      {categoryId !== 0 && customEnrollments && (
+        <StudentCourseCard enrollments={customEnrollments} />
+      )}
     </div>
   );
 };
