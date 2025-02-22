@@ -3,6 +3,9 @@ export interface IUser {
   name: string;
   email: string;
   role: string;
+  username: string;
+  createdAt: unknown;
+  updatedAt: unknown;
 }
 
 export interface GenericResponse {
@@ -25,5 +28,5 @@ export interface IUserResponse {
 export type UserAuthInput = {
   email: string;
   password: string;
-  role: 'student' | 'instructor' | 'admin';
+  role?: 'student' | 'instructor' | 'admin';
 };

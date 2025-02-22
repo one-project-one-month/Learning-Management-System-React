@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
-  const proxy_url = process.env.VITE_BACKEND_SERVER;
+
 
   const config = {
     plugins: [react()],
@@ -18,13 +18,6 @@ export default ({ mode }: { mode: string }) => {
     },
     server: {
       port: 3000,
-      proxy: {
-        "/api": {
-          target: proxy_url,
-          changeOrigin: true,
-          secure: false,
-        },
-      },
     },
   };
   return defineConfig(config);

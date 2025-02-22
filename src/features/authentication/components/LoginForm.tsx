@@ -1,13 +1,17 @@
 import { useTheme } from '@/provider/theme-provide';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Footer from '@/Layouts/Footer';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EyeIcon, EyeOff, LockKeyhole, Mail } from 'lucide-react';
+import { EyeIcon, EyeOff, LockKeyhole, Mail, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { useMutation } from '@tanstack/react-query';
+
+import { loginUserFn } from '../service/authApi';
 
 const LoginForm = () => {
   const { theme } = useTheme();
@@ -33,26 +37,42 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const navigate = useNavigate();
+
+  const { mutate: login, isPending } = useMutation({
+    mutationFn: loginUserFn,
+    onSuccess: () => {
+      toast.success('Welcome back! Login successful');
+      navigate('/dashboard');
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      const errorMessage =
+        error.response?.data?.message || 'Login failed. Please try again.';
+      toast.error(errorMessage);
+    },
+  });
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log('Form submitted:', data);
+    login(data);
   };
   return (
     <div className="flex justify-center  md:mt-0 mt-10">
       <div
-        className={`md:min-w-[450px] max-w-[600px]  ${theme === 'light' ? 'bg-white' : ''
-          } border flex flex-col space-y-5 border-gray-200 p-10 rounded-xl shadow-lg`}
+        className={`md:min-w-[450px] max-w-[600px]  ${
+          theme === 'light' ? 'bg-white' : ''
+        } border flex flex-col space-y-5 border-gray-200 p-10 rounded-xl shadow-lg`}
       >
         <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
           Login
         </h1>
         <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-
           {/* email field */}
           <div>
             <label htmlFor="email" className="text-sm text-gray-400">
               Email
             </label>
-            <div className='relative'>
+            <div className="relative">
               <Input
                 {...register('email')}
                 type="text"
@@ -63,7 +83,7 @@ const LoginForm = () => {
                 {...register('email', { required: '* Email is required' })}
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                <Mail className='w-5' />
+                <Mail className="w-5" />
               </span>
             </div>
 
@@ -82,7 +102,6 @@ const LoginForm = () => {
               Password
             </label>
             <div className="relative">
-
               <Input
                 {...register('password')}
                 type={showPassword ? 'text' : 'password'}
@@ -94,12 +113,20 @@ const LoginForm = () => {
                 })}
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 ">
-                <LockKeyhole className='w-5' />
+                <LockKeyhole className="w-5" />
               </span>
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 ">
-                {showPassword ?
-                  <EyeIcon className='w-5' onClick={() => setShowPassword(!showPassword)} /> :
-                  <EyeOff className='w-5' onClick={() => setShowPassword(!showPassword)} />}
+                {showPassword ? (
+                  <EyeIcon
+                    className="w-5"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                ) : (
+                  <EyeOff
+                    className="w-5"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                )}
               </span>
             </div>
             <div className="h-5">
@@ -109,7 +136,6 @@ const LoginForm = () => {
                 </p>
               )}
             </div>
-
 
             {/* show/hide password */}
             <div className="flex items-center">
@@ -136,10 +162,20 @@ const LoginForm = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full h-10 mt-4">
-            Login
+          <Button
+            type="submit"
+            className="w-full h-10 mt-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white"
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
+                Logging in...
+              </>
+            ) : (
+              'Login'
+            )}
           </Button>
-
         </form>
         <Link to={'/register'}>
           <p className="text-center">

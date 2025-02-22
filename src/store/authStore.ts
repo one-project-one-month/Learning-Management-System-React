@@ -41,6 +41,7 @@ export const useAuthStore = create<AuthState>()(
         try {
           const res = await API.get('/auth/me');
           set({ authUser: res.data });
+          set({ userRole: 'student' });
         } catch (error) {
           console.error(error);
           get().logout();
