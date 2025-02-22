@@ -79,7 +79,7 @@ const LoginForm = () => {
                 placeholder="Enter your email"
                 aria-invalid={!!errors.email}
                 autoComplete="off"
-                className="mt-1 h-10 ps-12"
+                className="mt-1 h-10 ps-12 text-sm"
                 {...register('email', { required: '* Email is required' })}
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -106,7 +106,7 @@ const LoginForm = () => {
                 {...register('password')}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
-                className="mt-1 h-10 ps-12"
+                className="mt-1 h-10 ps-12 text-sm"
                 autoComplete="off"
                 {...register('password', {
                   required: '* Password is required',
@@ -135,23 +135,6 @@ const LoginForm = () => {
                   {errors.password.message}
                 </p>
               )}
-            </div>
-
-            {/* show/hide password */}
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="show-password"
-                className="mr-2 cursor-pointer"
-                onChange={() => setShowPassword(!showPassword)}
-                checked={showPassword}
-              />
-              <label
-                htmlFor="show-password"
-                className="text-sm text-gray-400 cursor-pointer"
-              >
-                Show Password
-              </label>
             </div>
 
             {/* forgot password */}

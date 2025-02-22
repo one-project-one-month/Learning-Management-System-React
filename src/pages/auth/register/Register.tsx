@@ -4,32 +4,78 @@ import Footer from '@/Layouts/Footer';
 import Figure from '@/assets/undraw_hello_ccwj.svg';
 import { useTheme } from '@/provider/theme-provide';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { EyeIcon, EyeOff, LockKeyhole, Mail } from 'lucide-react';
+import { EyeIcon, EyeOff, LockKeyhole, Mail, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { useMutation } from '@tanstack/react-query';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-type FormData = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+const registerSchema = z
+  .object({
+    email: z.string().email('Please enter a valid email'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
+
+type FormData = z.infer<typeof registerSchema>;
 
 const Register = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const { mutate: registerUser, isPending } = useMutation({
+    mutationFn: async (data: FormData) => {
+      // Replace this with your actual registration API call
+      const response = await fetch(
+        import.meta.env.VITE_BACKEND_SERVER + '/api/v1/auth/register',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        }
+      );
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Registration failed');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast.success('Registration successful! Please login.');
+      navigate('/login');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Registration failed. Please try again.');
+    },
+  });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log('Form submitted:', data);
+    registerUser(data);
   };
 
   return (
-    <div className="grid md:grid-cols-2  justify-center items-center border-t-2 border-gray-200 md:p-4">
+    <div className="grid md:grid-cols-2  md:h-[80vh] justify-center items-center border-t-2 border-gray-200 md:p-4">
       {/* left side image & text */}
       <div className="flex flex-col items-center justify-center space-y-3">
         <img src={Figure} alt="" className="w-60" />
@@ -67,8 +113,8 @@ const Register = () => {
                   <Input
                     type="text"
                     placeholder="Enter your email"
-                    className="mt-1 h-10 ps-12"
-                    {...register('email', { required: '* Email is required' })}
+                    className="mt-1 h-10 ps-12 text-sm"
+                    {...register('email')}
                   />
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                     <Mail className="w-5" />
@@ -90,10 +136,8 @@ const Register = () => {
                   <Input
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter your password"
-                    className="mt-1 h-10 ps-12"
-                    {...register('password', {
-                      required: '* Password is required',
-                    })}
+                    className="mt-1 h-10 ps-12 text-sm"
+                    {...register('password')}
                   />
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                     <LockKeyhole className="w-5" />
@@ -129,15 +173,30 @@ const Register = () => {
                 </label>
                 <div className="relative">
                   <Input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showConfirmPassword ? 'text' : 'password'}
                     placeholder="Confirm your password"
-                    className="mt-1 h-10 ps-12"
-                    {...register('confirmPassword', {
-                      required: '* Confirm Password is required',
-                    })}
+                    className="mt-1 h-10 ps-12 text-sm"
+                    {...register('confirmPassword')}
                   />
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                     <LockKeyhole className="w-5" />
+                  </span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    {showConfirmPassword ? (
+                      <EyeIcon
+                        className="w-5 cursor-pointer"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      />
+                    ) : (
+                      <EyeOff
+                        className="w-5 cursor-pointer"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      />
+                    )}
                   </span>
                 </div>
                 {errors.confirmPassword && (
@@ -147,25 +206,19 @@ const Register = () => {
                 )}
               </div>
 
-              {/* show/hide password */}
-              <div className="flex items-center mt-2">
-                <input
-                  type="checkbox"
-                  id="show-password"
-                  className="mr-2 cursor-pointer"
-                  onChange={() => setShowPassword(!showPassword)}
-                  checked={showPassword}
-                />
-                <label
-                  htmlFor="show-password"
-                  className="text-sm text-gray-400 cursor-pointer"
-                >
-                  Show Password
-                </label>
-              </div>
-
-              <Button type="submit" className="w-full h-10">
-                Submit
+              <Button
+                type="submit"
+                className="w-full h-10 mt-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white"
+                disabled={isPending}
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
+                    Creating Account...
+                  </>
+                ) : (
+                  'Create Account'
+                )}
               </Button>
             </div>
           </form>
