@@ -11,6 +11,7 @@ import { Diamond } from 'lucide-react';
 import { memo } from 'react';
 import { TUserCourse } from './types';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useNavigate } from 'react-router-dom';
 
 const colors = [
   'bg-indigo-300',
@@ -23,9 +24,15 @@ const colors = [
 
 const StudentCourseCard = memo(
   ({ courseData }: { courseData: TUserCourse[] }) => {
+    const navigate = useNavigate()
+    
     return (
       <div className="grid md:grid-cols-3 gap-4">
-        {courseData.map((item, index) => (
+        {courseData.map((item, index) => {
+           const handleContinueClick = () => {
+            navigate(`/coursedetails/${item.id}`)
+          }
+        return (
           <Card
             key={item.id}
             className={`${
@@ -66,12 +73,16 @@ const StudentCourseCard = memo(
                 <h1>{item.instructor}</h1>
               </div>
 
-              <Button className="bg-orange-600 text-md rounded-lg hover:bg-orange-700">
+                <Button
+                className="bg-orange-600 text-md rounded-lg hover:bg-orange-700"
+                onClick={handleContinueClick}
+                >
                 Continue
-              </Button>
+                </Button>
             </CardFooter>
           </Card>
-        ))}
+        )
+      })}
       </div>
     );
   }

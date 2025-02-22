@@ -1,6 +1,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import { CoursePageTesting, Dashboard, Login, MainLayout, Register } from './elements';
 import Loader from '@/components/Loading';
+import CourseDetailPage from '@/pages/StudentCourseDetails/CourseDetailPage';
 
 export default function Admin() {
 
@@ -24,6 +25,11 @@ export default function Admin() {
         {
           path: 'courses',
           element: <CoursePageTesting />,
+        },
+        {
+          path : 'coursedetails/:courseId',
+          element : <CourseDetailPage/>
+
         },
         {
           path: 'loading',
