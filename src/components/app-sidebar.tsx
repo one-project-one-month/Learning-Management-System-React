@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import {
-  AudioWaveform,
   BookOpenCheckIcon,
   BookOpenIcon,
-  Command,
   Frame,
-  GalleryVerticalEnd,
+  GraduationCapIcon,
+  LayoutDashboard,
+  Mail,
   Map,
   PieChart,
 } from 'lucide-react';
@@ -22,6 +22,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from '@/components/ui/sidebar';
+import { TeamSwitcher } from './team-switcher';
 
 // This is sample data.
 const data = {
@@ -33,19 +34,9 @@ const data = {
   },
   teams: [
     {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
+      name: 'LMS Platform',
+      logo: GraduationCapIcon,
       plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
     },
   ],
   navMain: [
@@ -88,6 +79,37 @@ const data = {
         },
       ],
     },
+    {
+      title: 'Dashboards',
+      url: '#',
+      icon: LayoutDashboard,
+      dashboardCategory: [
+        {
+          title: 'Admin Dashboard',
+          url: 'admin',
+        },
+        {
+          title: 'Instructor Dashboard',
+          url: 'instructor',
+        },
+        {
+          title: 'Student Dashboard',
+          url: 'student',
+        },
+      ],
+    },
+  ],
+  buttons: [
+    {
+      title: 'About',
+      url: '#',
+      icon: GraduationCapIcon,
+    },
+    {
+      title: 'Contact Us',
+      url: '#',
+      icon: Mail,
+    },
   ],
   projects: [
     {
@@ -114,16 +136,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       collapsible="icon"
       side="left"
       {...props}
-      className="flex flex-col items-center justify-between  h-full border-none hover:border-none focus:border-none focus:ring-0 "
+      className=" flex flex-col  items-center justify-between  h-full border-none hover:border-none focus:border-none focus:ring-0 "
     >
-      <SidebarHeader className="flex justify-center  items-center w-full">
-        <span className="font-semibold text-xl mr-2">LMS</span>
+      <SidebarHeader>
+        <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
-      <SidebarContent className="flex flex-col items-start justify-center pt-5  w-full">
-        <NavMain items={data.navMain} />
+      <SidebarContent>
+        <NavMain items={data.navMain} buttons={data.buttons} />
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
-      <SidebarFooter className="flex justify-center items-center w-full ">
+      <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
