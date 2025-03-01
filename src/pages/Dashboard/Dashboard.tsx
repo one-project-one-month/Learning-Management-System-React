@@ -4,21 +4,23 @@ import InstructorDashboard from '../InstructorDashboard/InstructorDashboard';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import { useAuthStore } from '@/store/authStore';
 
-type UserRole = 'student' | 'admin' | 'instructor';
+type UserRole = 'STUDENT' | 'ADMIN' | 'INSTRUCTOR';
 interface DashboardProps {
   userRole?: UserRole;
 }
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  const { userRole } = useAuthStore();
-  if (!userRole) {
+  const { authUser, userRole } = useAuthStore();
+  console.log(userRole);
+  console.log(authUser);
+  if (!authUser) {
     return <h1 className="text-center mt-10 text-red-500">Please log in</h1>;
   }
 
   const dashboardComponents: Record<UserRole, React.ReactNode> = {
-    student: <StudentDashboard />,
-    instructor: <InstructorDashboard />,
-    admin: <AdminDashboard />,
+    STUDENT: <StudentDashboard />,
+    INSTRUCTOR: <InstructorDashboard />,
+    ADMIN: <AdminDashboard />,
   };
 
   return (

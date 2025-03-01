@@ -2,13 +2,11 @@
 
 import {
   BadgeCheck,
-  Bell,
-  ChevronsUpDown,
   CreditCard,
   LogIn,
   LogOut,
   LucideLogIn,
-  Sparkles,
+  ChevronsUpDown,
 } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -29,18 +27,16 @@ import {
 } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/provider/theme-provide';
+import { useAuthStore } from '@/store/authStore';
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
   const { theme } = useTheme();
+  const { authUser, logout } = useAuthStore();
+
+  const data = authUser?.data;
+
+  const isLoggedIn = !!data; // Check if the user is logged in
 
   return (
     <SidebarMenu>
@@ -48,26 +44,33 @@ export function NavUser({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              size="lg"
-              className={`h-16 ${
+              size="sm"
+              className={`h-16 outline-none border-gray-600 rounded-xl border py-8 mb-2 ${
                 theme == 'light'
-                  ? 'hover:bg-gray-300 data-[state=open]:bg-gray-300'
+                  ? 'hover:bg-gray-600 data-[state=open]:bg-gray-300'
                   : 'data-[state=open]:bg-sidebar-accent'
-              }   data-[state=open]:text-sidebar-accent-foreground`}
+              } data-[state=open]:text-sidebar-accent-foreground`}
             >
               <Avatar
-                className={`h-16 w-16 rounded-full ${
+                className={`h-14 w-14 rounded-full outline-none ${
                   theme == 'light' ? 'text-black' : 'text-white'
                 }`}
               >
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage
+                  width={20}
+                  height={20}
+                  src={(isLoggedIn && data?.avatar) || '/Brian.jpeg'}
+                  alt={data?.name}
+                />
                 <AvatarFallback className="rounded-lg">
-                  {user.name}
+                  {data?.name?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">
+                  {data?.name} Need to Login
+                </span>
+                <span className="truncate text-xs">{data?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -81,22 +84,19 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal cursor-pointer">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage src={data?.avatar} alt={data?.name} />
+                  <AvatarFallback className="rounded-lg">
+                    {data?.name?.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold">{data?.name}</span>
+                  <span className="truncate text-xs">{data?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer">
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer">
@@ -107,28 +107,34 @@ export function NavUser({
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
-            <Link to="/login">
-              <DropdownMenuItem className="cursor-pointer">
-                <LogIn />
-                Login
+
+            {/* Conditionally render Logout or Login/Register based on auth state */}
+            {isLoggedIn ? (
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => logout()}
+              >
+                <LogOut />
+                Log out
               </DropdownMenuItem>
-            </Link>
-            <Link to="/register">
-              <DropdownMenuItem className="cursor-pointer">
-                <LucideLogIn />
-                <span>Register</span>
-              </DropdownMenuItem>
-            </Link>
+            ) : (
+              <>
+                <Link to="/login">
+                  <DropdownMenuItem className="cursor-pointer">
+                    <LogIn />
+                    Login
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/register">
+                  <DropdownMenuItem className="cursor-pointer">
+                    <LucideLogIn />
+                    <span>Register</span>
+                  </DropdownMenuItem>
+                </Link>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

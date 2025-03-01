@@ -3,8 +3,11 @@ import { CoursePageTesting, Login, MainLayout, Register } from './elements';
 
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import CourseDetailPage from '@/pages/course/CourseDetailPage';
+import { useAuthStore } from '@/store/authStore';
 
 export default function Admin() {
+  const { authUser } = useAuthStore();
+
   return useRoutes([
     {
       path: '/',
@@ -26,13 +29,14 @@ export default function Admin() {
           path: 'coursedetails',
           element: <CourseDetailPage />,
         },
+
         {
           path: 'login',
-          element: <Login />,
+          element: authUser ? <Navigate to="/" /> : <Login />,
         },
         {
           path: 'register',
-          element: <Register />,
+          element: authUser ? <Navigate to="/" /> : <Register />,
         },
       ],
     },

@@ -9,8 +9,14 @@ export const loginUserFn = async (user: UserAuthInput) => {
       password: user.password,
     });
 
-    const { accessToken, refreshToken } = res.data;
-    await useAuthStore.getState().login({ accessToken, refreshToken });
+
+    if (res.data.status === 'SUCCESS') {
+      const { accessToken, refreshToken } = res.data.data;
+      console.log('accesstoken', accessToken);
+      await useAuthStore.getState().login({ accessToken, refreshToken });
+    }
+
+    return res.data;
   } catch (error) {
     console.error(error);
     throw error;

@@ -5,7 +5,10 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 const StudentNav = () => {
-  const { authUser } = useAuthStore();
+  const { authUser, accessToken } = useAuthStore();
+
+  console.log(accessToken);
+
   return (
     <header className="h-20 w-full  flex justify-between items-center px-2  border-slate-600">
       <div className="flex justify-between items-center">

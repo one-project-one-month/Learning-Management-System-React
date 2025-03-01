@@ -1,5 +1,6 @@
 import API from '@/features/authentication/service/api';
 import { IUser } from '@/features/authentication/types/types';
+import { redirect } from 'react-router-dom';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -22,7 +23,7 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       authUser: null,
-      userRole: 'student',
+      userRole: null,
       accessToken: null,
       refreshToken: null,
 
@@ -35,13 +36,15 @@ export const useAuthStore = create<AuthState>()(
 
       logout: () => {
         set({ authUser: null, accessToken: null, refreshToken: null });
+        redirect('/dashboard');
       },
 
       fetchUser: async () => {
         try {
           const res = await API.get('/auth/me');
+          console.log(res);
           set({ authUser: res.data });
-          set({ userRole: 'student' });
+          set({ userRole: res.data.data.roleName });
         } catch (error) {
           console.error(error);
           get().logout();
