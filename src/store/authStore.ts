@@ -1,12 +1,12 @@
 import API from '@/features/authentication/service/api';
-import { IUser } from '@/features/authentication/types/types';
+import { IAuthUser } from '@/features/authentication/types/types';
 import { redirect } from 'react-router-dom';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type UserRole = 'student' | 'instructor' | 'admin' | null;
+type UserRole = 'STUDENT' | 'INSTRUCTOR' | 'ADMIN' | null;
 interface AuthState {
-  authUser: IUser | null;
+  authUser: IAuthUser | null;
   userRole: UserRole;
   setRole: (role: Exclude<UserRole, null>) => void;
   accessToken: string | null;

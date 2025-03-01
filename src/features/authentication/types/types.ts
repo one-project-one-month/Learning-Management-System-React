@@ -2,10 +2,17 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  role: string;
+  roleName: string;
   username: string;
   createdAt: unknown;
   updatedAt: unknown;
+  userId: string;
+  available: boolean;
+}
+
+export interface IAuthUser {
+  data: IUser;
+  status: string;
 }
 
 export interface GenericResponse {

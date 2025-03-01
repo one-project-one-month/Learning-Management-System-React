@@ -59,7 +59,7 @@ export function NavUser() {
                 <AvatarImage
                   width={20}
                   height={20}
-                  src={(isLoggedIn && data?.avatar) || '/Brian.jpeg'}
+                  src={'/Brian.jpeg'}
                   alt={data?.name}
                 />
                 <AvatarFallback className="rounded-lg">
@@ -84,7 +84,7 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal cursor-pointer">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={data?.avatar} alt={data?.name} />
+                  <AvatarImage alt={data?.name} />
                   <AvatarFallback className="rounded-lg">
                     {data?.name?.charAt(0)}
                   </AvatarFallback>
