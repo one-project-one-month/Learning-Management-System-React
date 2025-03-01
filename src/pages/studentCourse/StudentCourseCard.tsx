@@ -14,14 +14,14 @@ import DiamondIcon from './diamond-icon';
 import { enrollment } from './types';
 import { courseDummyCategory } from '@/constant/dummy-data';
 
-// const colors = [
-//   'bg-indigo-300',
-//   'bg-red-300',
-//   'bg-green-300',
-//   'bg-blue-300',
-//   'bg-yellow-300',
-//   'bg-purple-300',
-// ];
+const colors = [
+  'bg-indigo-300',
+  'bg-red-300',
+  'bg-green-300',
+  'bg-blue-300',
+  'bg-yellow-300',
+  'bg-purple-300',
+];
 
 const StudentCourseCard = memo(
   ({ enrollments }: { enrollments: enrollment[] }) => {
@@ -29,14 +29,12 @@ const StudentCourseCard = memo(
 
     return (
       <div className="grid md:grid-cols-3 gap-4">
-        {/* {courseData.map((item, index) => ( */}
         {courseData.map((item) => (
           <Card
             key={item.id}
-            className={'bg-indigo-300 rounded-[30px] border-[#000] border-2'}
-            // className={`${
-            //   colors[index % colors.length]
-            // } rounded-[30px] border-[#000] border-2`}
+            className={`${
+              colors[item.id % colors.length]
+            } rounded-[30px] border-[#000] border-2`}
           >
             <CardHeader className="flex flex-row justify-between items-center ">
               <CardTitle>
