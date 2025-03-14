@@ -7,28 +7,45 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { courseDummyCategory } from '@/constant/dummy-data';
-import { categories } from '../studentCourse/types';
+import { useQuery } from '@tanstack/react-query';
+import { getAllCategories } from '@/services';
 
 interface Props {
   onCategoryId: (categoryId: number) => void;
 }
 
 export default function ExploreNavigationMenu({ onCategoryId }: Props) {
-  const category: categories[] = [
-    { id: 0, name: 'All' },
-    ...courseDummyCategory,
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ['allCategories'],
+    queryFn: getAllCategories,
+    staleTime: 60 * 1000,
+  });
+
+  if (isError) return <div>Something Wrong</div>;
+  if (!data) return null;
+
+  const categories = [
+    {
+      id: 0,
+      name: 'All',
+      createdAt: '2025-03-06T05:43:18.035Z',
+      updatedAt: '2025-03-06T05:43:18.035Z',
+    },
+    ...data,
   ];
 
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
+          <NavigationMenuTrigger disabled={isLoading}>
+            {isLoading ? 'loading...' : 'Explore'}
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ScrollArea className="h-72 w-48 rounded-md border">
+            <ScrollArea className="h-auto w-48 rounded-md border">
+              {/* <ScrollArea className="h-72 w-48 rounded-md border"> */}
               <ul>
-                {category.map((data) => (
+                {categories.map((data) => (
                   <li key={data.id}>
                     <NavigationMenuLink
                       onClick={() => {

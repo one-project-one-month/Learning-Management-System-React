@@ -6,6 +6,7 @@ interface Props {
   categoryId: number;
   courseName: string;
   level: level;
+  thumbnail: string;
 }
 
 export const sampleCourse = ({
@@ -13,13 +14,14 @@ export const sampleCourse = ({
   categoryId,
   courseName,
   level,
+  thumbnail,
 }: Props): courses => ({
   id: courseId,
 
   categoryId: categoryId,
 
   courseName,
-  thumbnail: 'https://example.com/thumbnail.jpg',
+  thumbnail,
   isAvailable: true,
   type: 'Online',
   level,

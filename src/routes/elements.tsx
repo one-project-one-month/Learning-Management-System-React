@@ -43,3 +43,8 @@ export const AllCourses = Loadable(
 export const CourseDetails = Loadable(
   lazy(() => import('../pages/CourseDetails/CourseDetails.tsx'))
 );
+
+// Instructor Details Page ( User Role )
+export const InstructorDetails = Loadable(
+  lazy(() => import('../pages/InstructorDetails/InstructorDetails.tsx'))
+);

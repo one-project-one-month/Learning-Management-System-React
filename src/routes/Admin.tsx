@@ -5,10 +5,12 @@ import {
   Register,
   AllCourses,
   CourseDetails,
+  InstructorDetails,
 } from './elements';
 
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import CourseDetailPage from '@/pages/course/CourseDetailPage';
+import NewCourse from '@/pages/NewCourse/NewCourse';
 
 export default function Admin() {
   return useRoutes([
@@ -29,8 +31,16 @@ export default function Admin() {
           element: <AllCourses />,
         },
         {
+          path: 'course/new',
+          element: <NewCourse />,
+        },
+        {
           path: 'courses/:courseId',
           element: <CourseDetails />,
+        },
+        {
+          path: 'instructor/:instructorId',
+          element: <InstructorDetails />,
         },
         {
           path: 'coursedetails',
