@@ -4,12 +4,15 @@ import RootApp from './RootApp.tsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './provider/theme-provide.tsx';
+import SearchProvider from './provider/search-provider.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <HelmetProvider>
     <BrowserRouter>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RootApp />
+        <SearchProvider>
+          <RootApp />
+        </SearchProvider>
       </ThemeProvider>
     </BrowserRouter>
   </HelmetProvider>

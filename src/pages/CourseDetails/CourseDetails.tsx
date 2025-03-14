@@ -1,90 +1,76 @@
-import { sampleCourse } from '@/constant/dummy-course';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { courseDetails, users } from '../studentCourse/types';
+import { API_BASE_URL } from '@/config/serverApiConfig';
+import { CourseDetailsResponse, UserResponse } from './types';
+import { useParams } from 'react-router-dom';
 
-import { Button } from '@/components/ui/button';
-
-import InstructorInfo from './instructor-info';
-import { useState } from 'react';
-import CourseComments from './course-comments';
-import CourseLessons from './course-lessons';
+import CourseTabs from './course-tabs';
+import InstructorInfoCard from './instructor-info-card';
+import CourseShareCard from './course-share-card';
+import CoursePurchaseCard from './course-purchase-card';
+import CourseHeader from './course-header';
 
 export default function CourseDetails() {
   const { courseId } = useParams();
-  const [addCart, setAddCart] = useState(false);
 
-  const enroll = false;
+  const [courseData, setCourseData] = useState<courseDetails>();
+  const [instructor, setInstructor] = useState<users>();
 
-  const course = sampleCourse({
-    categoryId: 1,
-    courseId: +courseId!,
-    courseName: 'Introduction to Computer Science',
-    level: 'beginner',
-  });
+  useEffect(() => {
+    async function getCourseById() {
+      const response = await fetch(`${API_BASE_URL}/courses/${courseId}`);
+      const data = (await response.json()) as CourseDetailsResponse;
+      setCourseData(data.data);
+    }
+    getCourseById();
+  }, [courseId]);
 
-  const { lesson, comments, instructor } = course;
-  const totalStudents = course.enrollments?.length;
-  const totalComments = comments?.length;
+  useEffect(() => {
+    async function getInstructorById() {
+      if (!courseData?.instructorId) return;
+
+      const response = await fetch(
+        `${API_BASE_URL}/users/${courseData?.instructorId}`
+      );
+      const data = (await response.json()) as UserResponse;
+      setInstructor(data.data);
+    }
+    getInstructorById();
+  }, [courseData?.instructorId]);
+
+  if (!courseData || !instructor) return null;
+
+  const { lessons } = courseData;
 
   return (
-    <main className="p-2 pl-3">
-      <div className="flex sm:flex-col lg:flex-row sm:gap-3">
-        <div>
-          <div className="text-2xl font-bold">{course.courseName}</div>
-          <div className="text-sm font-thin mt-1">{totalStudents} students</div>
-          <div>
-            <span className="font-semibold text-sm">Created by</span>
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Course Main Content - Left Side (2/3 width on large screens) */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Course Header */}
+          <CourseHeader courseData={courseData} />
 
-            {/* link to instructor profile */}
-            <Link to={'/'} className="underline text-blue-500 ml-1 text-sm">
-              {course.instructor.users?.username}
-            </Link>
-          </div>
-          <div>
-            <div className="font-semibold mt-2">Description</div>
-            <div className="text-wrap">{course.description}</div>
-          </div>
+          {/* Course Tabs */}
+          <CourseTabs courseData={courseData} lessons={lessons} />
         </div>
-        <div className="flex flex-col gap-1 items-center">
-          <img
-            src="/src/assets/LMS.png"
-            alt="lms"
-            className="rounded-xl h-auto max-w-sm"
-          />
-          <Button
-            variant={'destructive'}
-            className="w-full"
-            onClick={() => setAddCart((add) => !add)}
-          >
-            {addCart ? 'Added' : enroll ? 'Enrolled' : 'Add to Cart'}
-          </Button>
+
+        {/* Course Sidebar - Right Side (1/3 width on large screens) */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-8 space-y-6">
+            {/* Course Purchase Card */}
+            <CoursePurchaseCard courseData={courseData} />
+
+            {/* Instructor Card */}
+            <InstructorInfoCard
+              courseData={courseData}
+              instructor={instructor}
+            />
+
+            {/* Share Card */}
+            <CourseShareCard />
+          </div>
         </div>
       </div>
-
-      {/* Explore related category */}
-      {/* <div>
-        <div className="font-semibold">Explore related category</div>
-        <Link to={'/'}>
-          <Button variant={'secondary'}>
-            {
-              courseDummyCategory.find((data) => data.id === course.categoryId)
-                ?.name
-            }
-          </Button>
-        </Link>
-      </div> */}
-
-      {/* Course Lessons */}
-      <CourseLessons lessons={lesson!} />
-
-      {/* Instructor */}
-      <InstructorInfo
-        instructor={instructor}
-        totalStudents={totalStudents!}
-        totalComment={totalComments!}
-      />
-
-      {/* Comments */}
-      <CourseComments comments={comments!} />
-    </main>
+    </div>
   );
 }

@@ -1,7 +1,3 @@
-import { tokens } from '../auth/types';
-import { admins, role, students } from '../Dashboard/types';
-import { instructors } from '../InstructorDashboard/types';
-
 export type TUserCourse = {
   id: number;
   category: string;
@@ -11,109 +7,108 @@ export type TUserCourse = {
   instructor: string;
 };
 
+// checked
 export interface users {
   id: number;
+  name: string;
   username: string;
   email: string;
-  password: string;
-  phone: number;
+  phone: string;
   dob: string;
   address: string;
   profilePhoto: string;
-  isAvailable: boolean;
+  available: boolean;
+  roleName: Role;
+  userId: number;
+  nrc: string;
+  eduBackground: string;
   createdAt: string;
-  updatedAt?: string;
-
-  roleId: number;
-  role?: role;
-
-  tokenId: number;
-  token?: tokens;
-
-  studentId?: number;
-  student?: students;
-
-  instructorId?: number;
-  instructor?: instructors;
-
-  adminId?: number;
-  admin?: admins;
-
-  enrollments?: enrollment[];
-
-  certificates?: certificate[];
+  updatedAt: string;
 }
 
+export type Role = 'admin' | 'instructor' | 'student';
+
+// checked
 export interface categories {
   id: number;
   name: string;
-
-  courses?: courses[];
+  createdAt: string;
+  updatedAt: string;
 }
 
+// checked
 export interface courses {
   id: number;
   courseName: string;
   thumbnail: string;
-  isAvailable: boolean;
   type: string;
   level: level;
   description: string;
-  duration: string;
+  duration: number;
   originalPrice: number;
   currentPrice: number;
+  categoryName: string;
   createdAt: string;
   updatedAt: string;
-
-  categoryId: number;
-  category?: categories;
-
+  available: boolean;
   instructorId: number;
-  instructor: instructors;
-
-  socialLinksId: number;
-  socialLinks: socialLinks;
-
-  lesson?: lesson[];
-
-  enrollments?: enrollment[];
-
-  comments?: comment[];
-
-  certificate: certificate;
+  categoryId: number;
+  socialLinkId: number;
+  studentCount: number;
 }
 
+export interface courseDetails {
+  id: number;
+  courseName: string;
+  thumbnail: string;
+  type: string;
+  level: level;
+  description: string;
+  duration: number;
+  originalPrice: number;
+  currentPrice: number;
+  categoryName: string;
+  createdAt: string;
+  updatedAt: string;
+  available: boolean;
+  instructorId: number;
+  categoryId: number;
+  socialLinkId: number;
+  category: categories;
+  lessons: lesson[];
+  socialLink: socialLinks;
+  enrollment: enrollment[];
+  comments: comment[];
+  certificates: certificate[];
+}
+
+// checked
 export interface enrollment {
   id: number;
-  enrollmentDate: string;
-  isCompleted: boolean;
-  completedDate: string;
-
-  userId: number;
-  user?: users;
-
+  studentId: number;
   courseId: number;
-  course?: courses;
+  enrollmentDate: string;
 }
 
 export type level = 'beginner' | 'intermediate' | 'advanced';
 
+// checked
 export interface lesson {
   id: number;
   title: string;
   videoUrl: string;
   lessonDetail: string;
-  isAvailable: boolean;
+  available: true;
   createdAt: string;
   updatedAt: string;
-
   courseId: number;
-  course?: courses;
 }
 
+// no include
 export interface certificate {
   id: number;
-  certificatePath: string;
+  certificateTitle: string;
+  certificateDetail: string;
   certificateDate: string;
 
   userId?: number;
@@ -123,6 +118,7 @@ export interface certificate {
   course?: courses;
 }
 
+// no include
 export interface socialLinks {
   id: number;
   facebook: string;
@@ -131,14 +127,18 @@ export interface socialLinks {
   phone: string;
   email: string;
 
-  courseId: number;
+  courseId?: number;
   course?: courses;
 }
 
+// no include
 export interface comment {
   id: number;
   message: string;
   time: string;
+
+  userId: number;
+  user?: users;
 
   courseId: number;
   course?: courses;
