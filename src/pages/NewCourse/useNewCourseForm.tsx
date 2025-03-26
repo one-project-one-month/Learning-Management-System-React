@@ -38,8 +38,6 @@ export type NewCourseFormData = UseFormReturn<
 export default function useNewCourseForm(
   courseId: number | undefined
 ): NewCourseFormData {
-  // const [courseData, setCourseData] = useState<courseDetails>();
-
   const form = useForm({
     resolver: zodResolver(newCourseFormSchema),
     defaultValues: {
@@ -61,7 +59,7 @@ export default function useNewCourseForm(
     async function getCourseById() {
       const response = await fetch(`${API_BASE_URL}/courses/${courseId}`);
       const data = (await response.json()) as CourseDetailsResponse;
-      // console.log('useNewCourseForm >>>', data);
+
       form.reset(data.data);
     }
     if (courseId) getCourseById();
