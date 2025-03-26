@@ -30,6 +30,7 @@ export const MainLayout = Loadable(lazy(() => import('../Layouts/Layout.tsx')));
 export const Dashboard = Loadable(
   lazy(() => import('../pages/Dashboard/Dashboard.tsx'))
 );
+
 export const CoursePageTesting = Loadable(
   lazy(() => import('../pages/studentCourse/StudentCourses.tsx'))
 );
@@ -47,4 +48,9 @@ export const CourseDetails = Loadable(
 // Instructor Details Page ( User Role )
 export const InstructorDetails = Loadable(
   lazy(() => import('../pages/InstructorDetails/InstructorDetails.tsx'))
+);
+
+// New Course Page ( Instructor Role )
+export const NewCourse = Loadable(
+  lazy(() => import('../pages/NewCourse/NewCourse.tsx'))
 );

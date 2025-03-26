@@ -9,7 +9,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme } = useTheme();
 
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       {/* app sidebar */}
       <AppSidebar />
       <SidebarInset>

@@ -6,11 +6,11 @@ import {
   AllCourses,
   CourseDetails,
   InstructorDetails,
+  NewCourse,
 } from './elements';
 
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import CourseDetailPage from '@/pages/course/CourseDetailPage';
-import NewCourse from '@/pages/NewCourse/NewCourse';
 
 export default function Admin() {
   return useRoutes([
@@ -31,7 +31,7 @@ export default function Admin() {
           element: <AllCourses />,
         },
         {
-          path: 'course/new',
+          path: 'courses/new',
           element: <NewCourse />,
         },
         {
