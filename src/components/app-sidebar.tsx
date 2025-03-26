@@ -22,6 +22,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from '@/components/ui/sidebar';
+import { Link } from 'react-router-dom';
 
 // This is sample data.
 const data = {
@@ -117,7 +118,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="flex flex-col items-center justify-between  h-full border-none hover:border-none focus:border-none focus:ring-0 "
     >
       <SidebarHeader className="flex justify-center  items-center w-full">
-        <span className="font-semibold text-xl mr-2">LMS</span>
+        <Link to={'/'} className="font-semibold text-xl mr-2">
+          LMS
+        </Link>
       </SidebarHeader>
       <SidebarContent className="flex flex-col items-start justify-center pt-5  w-full">
         <NavMain items={data.navMain} />

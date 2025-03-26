@@ -1,7 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import CourseComments from './course-comments';
-import { Card, CardContent } from '@/components/ui/card';
-import { GraduationCap } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { courseDetails, lesson } from '../studentCourse/types';
@@ -14,10 +12,10 @@ type Props = {
 export default function CourseTabs({ courseData, lessons }: Props) {
   return (
     <Tabs defaultValue="overview" className="w-full">
-      <TabsList className="grid grid-cols-3 mb-8">
+      <TabsList className="grid grid-cols-2 mb-8">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
-        <TabsTrigger value="reviews">Reviews</TabsTrigger>
+        {/* <TabsTrigger value="reviews">Reviews</TabsTrigger> */}
       </TabsList>
 
       {/* Overview Tab */}
@@ -39,7 +37,7 @@ export default function CourseTabs({ courseData, lessons }: Props) {
           </ul>
         </div>
 
-        <div>
+        {/* <div>
           <h2 className="text-xl font-semibold mb-4">Certificate</h2>
           <Card>
             <CardContent className="p-6">
@@ -58,7 +56,7 @@ export default function CourseTabs({ courseData, lessons }: Props) {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </TabsContent>
 
       {/* Curriculum Tab */}
@@ -110,7 +108,7 @@ export default function CourseTabs({ courseData, lessons }: Props) {
       </TabsContent>
 
       {/* Reviews Tab */}
-      <TabsContent value="reviews" className="space-y-6">
+      {/* <TabsContent value="reviews" className="space-y-6">
         <div>
           <h2 className="text-xl font-semibold mb-4">Student Reviews</h2>
           {courseData.comments && courseData.comments.length > 0 ? (
@@ -125,7 +123,7 @@ export default function CourseTabs({ courseData, lessons }: Props) {
             </p>
           )}
         </div>
-      </TabsContent>
+      </TabsContent> */}
     </Tabs>
   );
 }

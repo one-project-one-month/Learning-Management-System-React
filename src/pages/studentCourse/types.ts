@@ -7,7 +7,6 @@ export type TUserCourse = {
   instructor: string;
 };
 
-// checked
 export interface users {
   id: number;
   name: string;
@@ -28,7 +27,6 @@ export interface users {
 
 export type Role = 'admin' | 'instructor' | 'student';
 
-// checked
 export interface categories {
   id: number;
   name: string;
@@ -36,7 +34,6 @@ export interface categories {
   updatedAt: string;
 }
 
-// checked
 export interface courses {
   id: number;
   courseName: string;
@@ -78,11 +75,8 @@ export interface courseDetails {
   lessons: lesson[];
   socialLink: socialLinks;
   enrollment: enrollment[];
-  comments: comment[];
-  certificates: certificate[];
 }
 
-// checked
 export interface enrollment {
   id: number;
   studentId: number;
@@ -92,7 +86,6 @@ export interface enrollment {
 
 export type level = 'beginner' | 'intermediate' | 'advanced';
 
-// checked
 export interface lesson {
   id: number;
   title: string;
@@ -102,20 +95,6 @@ export interface lesson {
   createdAt: string;
   updatedAt: string;
   courseId: number;
-}
-
-// no include
-export interface certificate {
-  id: number;
-  certificateTitle: string;
-  certificateDetail: string;
-  certificateDate: string;
-
-  userId?: number;
-  user?: users;
-
-  courseId: number;
-  course?: courses;
 }
 
 // no include
@@ -130,20 +109,3 @@ export interface socialLinks {
   courseId?: number;
   course?: courses;
 }
-
-// no include
-export interface comment {
-  id: number;
-  message: string;
-  time: string;
-
-  userId: number;
-  user?: users;
-
-  courseId: number;
-  course?: courses;
-}
-
-// export interface pathway {}
-// export interface qa {}
-// export interface chat {}

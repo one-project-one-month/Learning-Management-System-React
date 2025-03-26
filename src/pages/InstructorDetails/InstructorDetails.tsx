@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { API_BASE_URL } from '@/config/serverApiConfig';
 import { useEffect, useState } from 'react';
-import { UsersResponse } from '../CourseDetails/types';
+import { UserResponse } from '../CourseDetails/types';
 import { courses, users } from '../studentCourse/types';
 import { AllCourseResponse } from '../Courses/types';
 import CourseCard from '../Courses/course-card';
@@ -18,7 +18,7 @@ export default function InstructorDetails() {
       const response = await fetch(
         `${API_BASE_URL}/instructors/${instructorId}`
       );
-      const data = (await response.json()) as UsersResponse;
+      const data = (await response.json()) as UserResponse;
       setInstructor(data.data);
     }
     getInstructorById();

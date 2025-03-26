@@ -7,9 +7,7 @@ type Props = {
 };
 
 export default function CourseHeader({ courseData }: Props) {
-  const { comments } = courseData;
   const totalStudents = courseData.enrollment?.length;
-  const totalComments = comments?.length;
 
   return (
     <div>
@@ -42,13 +40,13 @@ export default function CourseHeader({ courseData }: Props) {
             {totalStudents} students
           </Badge>
         )}
-        {courseData.comments && courseData.comments.length > 0 && (
+        {/* {courseData.comments && courseData.comments.length > 0 && (
           <div className="flex items-center gap-1">
             <span className="text-sm text-muted-foreground">
               ({totalComments} reviews)
             </span>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
